@@ -5,12 +5,12 @@ class EmailService {
 
     constructor() {
         this.transporter = nodemailer.createTransport({
-            host: 'smtp.mailersend.net',
+            host: process.env.SMTP_HOST,
             port: 587, // You can use 587 for TLS or 465 for SSL
             secure: false, // Set to true if you're using port 465 (SSL)
             auth: {
-                user: 'MS_6602O7@meubot.chat',
-                pass: '7r1sXlBW2zn1fLJK',
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASSWORD,
             },
             ignoreTLS: false, // Set to true to ignore issues with TLS certificates
         });
@@ -19,7 +19,7 @@ class EmailService {
     async sendEmail(to: string, subject: string, text: string) {
         try {
             const mailOptions = {
-                from: 'no-reply@meubot.chat',
+                from: process.env.SMTP_FROM,
                 to: to,
                 subject: subject,
                 text: text,
